@@ -94,7 +94,21 @@ function handleNoClick() {
     toast.style.transform = 'translateY(6px)';
 
     noClickCount++;
-    const msgIndex = Math.min(noClickCount, noMessages.length - 1);
+    // determine which message to show; initially go through the list one by one
+    // once we've shown the last entry we begin cycling. the first entry in the
+    // cycle should be the final message itself ("It's exhausting keeping this
+    // secret.") so it feels like the last value is still "stuck" and then it
+    // rolls forward from there.
+    let msgIndex;
+    if (noClickCount <= noMessages.length) {
+        // normal progression: click 1 → index 0, click 2 → index 1, …
+        msgIndex = noClickCount - 1;
+    } else {
+        // overflow: start cycling beginning at last message, then wrap to the
+        // start of the array.
+        const overflow = noClickCount - noMessages.length;
+        msgIndex = (noMessages.length - 1 + overflow - 1) % noMessages.length;
+    }
     noBtn.textContent = noMessages[msgIndex];
 
     const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
