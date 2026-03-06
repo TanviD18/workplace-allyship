@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thank you! 🌈</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800;900&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+</head>
+<body class="ally-page">
+    <div class="hearts-bg"></div>
+
+    <div class="container yes-container">
+        <h1 class="yes-title">Thank you for being an ally! 🎉</h1>
+
+        <div class="gif-container">
+            <img id="cat-gif" src="gifs/hopeful.gif" alt="celebrating">
+        </div>
+
+        <p class="yes-message">Your support makes the workplace better for everyone 💖</p>
+
+        <div class="followup-buttons">
+            <button id="struggle-btn">Feeling overwhelmed? You're not alone – let's find your safe space (click for more)</button>
+            <button id="ally-btn">Curious about being a better ally? Discover tips here (keep clicking)</button>
+        </div>
+
+    </div>
+
+    <audio id="bg-music" loop>
+        <!-- replace with the same song as the main page for consistency -->
+        <source src="music/pride-anthem.mp3" type="audio/mpeg">
+    </audio>
+
+    <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
+
+    <script src="ally-yes-script.js"></script>
+</body>
+</html>
