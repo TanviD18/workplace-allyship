@@ -34,8 +34,10 @@ let yesTeasedCount = 0;
 let noClickCount = 0;
 let runawayEnabled = false;
 let musicPlaying = true;
+const runawayStartCount = noMessages.length;
 
 const catGif = document.getElementById('cat-gif');
+const gifThought = document.getElementById('gif-thought');
 const yesBtn = document.getElementById('yes-btn');
 const noBtn = document.getElementById('no-btn');
 const music = document.getElementById('bg-music');
@@ -85,6 +87,11 @@ function showTeaseMessage(msg) {
     toast._timer = setTimeout(() => toast.classList.remove('show'), 2500);
 }
 
+function showGifThought(msg) {
+    gifThought.textContent = msg;
+    gifThought.classList.add('show');
+}
+
 function handleNoClick() {
     // Hide any showing tease message immediately
     const toast = document.getElementById('tease-toast');
@@ -110,6 +117,7 @@ function handleNoClick() {
         msgIndex = (noMessages.length - 1 + overflow - 1) % noMessages.length;
     }
     noBtn.textContent = noMessages[msgIndex];
+    showGifThought(noMessages[msgIndex]);
 
     const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
     yesBtn.style.fontSize = `${currentSize * 1.35}px`;
@@ -140,7 +148,7 @@ function handleNoClick() {
     const gifIndex = Math.min(noClickCount, gifStages.length - 1);
     swapGif(gifStages[gifIndex]);
 
-    if (noClickCount >= 5 && !runawayEnabled) {
+    if (noClickCount >= runawayStartCount && !runawayEnabled) {
         enableRunaway();
         runawayEnabled = true;
     }

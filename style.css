@@ -75,6 +75,57 @@ h1 {
     margin: 20px auto;
     display: flex;
     justify-content: center;
+    position: relative;
+    width: fit-content;
+}
+
+.gif-thought {
+    position: absolute;
+    top: -18px;
+    left: calc(100% - 24px);
+    max-width: 240px;
+    padding: 14px 18px;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.96);
+    color: #7a2048;
+    font-size: 0.98rem;
+    font-weight: 800;
+    line-height: 1.35;
+    text-align: left;
+    box-shadow: 0 14px 30px rgba(214, 51, 132, 0.2);
+    border: 2px solid rgba(255, 168, 196, 0.9);
+    opacity: 0;
+    transform: translateY(8px) scale(0.96);
+    pointer-events: none;
+    transition: opacity 0.28s ease, transform 0.28s ease;
+}
+
+.gif-thought::before,
+.gif-thought::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.96);
+    border: 2px solid rgba(255, 168, 196, 0.9);
+    border-radius: 50%;
+}
+
+.gif-thought::before {
+    width: 18px;
+    height: 18px;
+    left: -12px;
+    bottom: 24px;
+}
+
+.gif-thought::after {
+    width: 10px;
+    height: 10px;
+    left: -22px;
+    bottom: 12px;
+}
+
+.gif-thought.show {
+    opacity: 1;
+    transform: translateY(0) scale(1);
 }
 
 #cat-gif {
@@ -315,6 +366,36 @@ h1 {
     to {
         opacity: 1;
         transform: translateY(0);
+    }
+}
+
+@media (max-width: 700px) {
+    .gif-container {
+        width: min(100%, 260px);
+        padding-top: 80px;
+    }
+
+    .gif-thought {
+        top: 0;
+        left: 50%;
+        transform: translate(-50%, 8px) scale(0.96);
+        max-width: min(88vw, 280px);
+    }
+
+    .gif-thought.show {
+        transform: translate(-50%, 0) scale(1);
+    }
+
+    .gif-thought::before {
+        left: 50%;
+        bottom: -16px;
+        transform: translateX(-50%);
+    }
+
+    .gif-thought::after {
+        left: 50%;
+        bottom: -30px;
+        transform: translateX(-50%);
     }
 }
 
