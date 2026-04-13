@@ -36,7 +36,7 @@ To make the allyship story feel authentic, replace the placeholder assets:
 
 ## Testing
 
-Run a local server and open `ally.html` to try the interaction. The No button will
+Run a local server and open `https://tanvid18.github.io/workplace-allyship/` to try the interaction. The No button will
 move after several clicks, nudging the user toward the supportive outcome.
 
 ---
