@@ -11,6 +11,17 @@ const gifStages = [
     "gifs/runaway.gif"      // 6 running away
 ];
 const rotatingGifs = gifStages.slice(1);
+const messageGifMap = [
+    "gifs/confused.gif",
+    "gifs/closet.gif",
+    "gifs/teary.gif",
+    "gifs/sad.gif",         // "passed over for promotions" shows a larger, clearer GIF
+    "gifs/overwhelmed.gif",
+    "gifs/confused.gif",
+    "gifs/teary.gif",
+    "gifs/closet.gif",
+    "gifs/runaway.gif"
+];
 
 const noMessages = [
     "No, I don't feel safe being open.",
@@ -163,10 +174,10 @@ function handleNoClick() {
         noBtn.style.background = 'linear-gradient(135deg, #922b21, #5a1b11)';
     }
 
-    // Rotate reaction GIFs based on the message index so each message change
-    // gets a visual change and loops continuously.
+    // Match each message to a reliable GIF and keep looping if messages repeat.
+    const mappedGif = messageGifMap[msgIndex % messageGifMap.length];
     const gifIndex = msgIndex % rotatingGifs.length;
-    swapGif(rotatingGifs[gifIndex]);
+    swapGif(mappedGif || rotatingGifs[gifIndex]);
 
     if (noClickCount >= runawayStartCount && !runawayEnabled) {
         enableRunaway();
@@ -183,7 +194,8 @@ function swapGif(src) {
             catGif.src = gifStages[0];
             catGif.style.opacity = '1';
         };
-        catGif.src = src;
+        // Add a cache token so browsers always repaint on each message change.
+        catGif.src = `${src}?v=${Date.now()}`;
         catGif.style.animation = 'gifPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
         catGif.style.opacity = '1';
     }, 200);
