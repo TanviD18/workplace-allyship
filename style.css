@@ -206,7 +206,9 @@ h1 {
 }
 
 #music-toggle {
-    position: static;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
     background: rgba(255, 255, 255, 0.85);
     border: none;
     border-radius: 50%;
@@ -226,16 +228,13 @@ h1 {
 
 /* Music widget – keeps hint bubble and speaker button together */
 .music-widget {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    z-index: 101;
+    position: static;
 }
 
 .music-hint {
+    position: fixed;
+    right: 82px;
+    bottom: 30px;
     display: flex;
     align-items: center;
     gap: 5px;
@@ -253,8 +252,7 @@ h1 {
     opacity: 1;
     transition: opacity 0.25s ease;
     animation: musicHintBounce 1.4s ease-in-out infinite;
-    /* arrow pointing right toward the speaker */
-    position: relative;
+    z-index: 101;
 }
 
 .music-hint::after {
@@ -269,9 +267,17 @@ h1 {
 }
 
 .music-hint.hidden {
+    display: none;
     opacity: 0;
     pointer-events: none;
     animation: none;
+}
+
+@media (max-width: 640px) {
+    .music-hint {
+        right: 78px;
+        bottom: 26px;
+    }
 }
 
 @keyframes musicHintBounce {
