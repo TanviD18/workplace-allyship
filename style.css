@@ -206,9 +206,7 @@ h1 {
 }
 
 #music-toggle {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
+    position: static;
     background: rgba(255, 255, 255, 0.85);
     border: none;
     border-radius: 50%;
@@ -226,26 +224,37 @@ h1 {
     transform: scale(1.1);
 }
 
-.music-hint {
+/* Music widget – keeps hint bubble and speaker button together */
+.music-widget {
     position: fixed;
-    right: 86px;
-    bottom: 30px;
-    display: block;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 101;
+}
+
+.music-hint {
+    display: flex;
+    align-items: center;
+    gap: 5px;
     border: none;
     border-radius: 999px;
-    padding: 9px 14px;
+    padding: 8px 14px;
     background: linear-gradient(135deg, #ff8fa3, #e91e8c);
     color: #fff;
     font-family: 'Nunito', sans-serif;
     font-size: 0.82rem;
     font-weight: 800;
     cursor: pointer;
-    box-shadow: 0 8px 18px rgba(233, 30, 140, 0.35);
+    box-shadow: 0 6px 16px rgba(233, 30, 140, 0.4);
+    white-space: nowrap;
     opacity: 1;
     transition: opacity 0.25s ease;
-    animation: musicHintBounce 1.6s ease-in-out infinite;
-    z-index: 101;
-    white-space: nowrap;
+    animation: musicHintBounce 1.4s ease-in-out infinite;
+    /* arrow pointing right toward the speaker */
+    position: relative;
 }
 
 .music-hint::after {
@@ -268,15 +277,6 @@ h1 {
 @keyframes musicHintBounce {
     0%, 100% { transform: translateY(0); }
     50% { transform: translateY(-5px); }
-}
-
-@media (max-width: 640px) {
-    .music-hint {
-        right: 78px;
-        bottom: 26px;
-        font-size: 0.76rem;
-        padding: 8px 12px;
-    }
 }
 
 /* Yes page specific */
