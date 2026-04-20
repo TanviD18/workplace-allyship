@@ -10,6 +10,7 @@ const gifStages = [
     "gifs/overwhelmed.gif", // 5 overwhelmed/stressed
     "gifs/runaway.gif"      // 6 running away
 ];
+const rotatingGifs = gifStages.slice(1);
 
 const noMessages = [
     "No, I don't feel safe being open.",
@@ -162,8 +163,10 @@ function handleNoClick() {
         noBtn.style.background = 'linear-gradient(135deg, #922b21, #5a1b11)';
     }
 
-    const gifIndex = Math.min(noClickCount, gifStages.length - 1);
-    swapGif(gifStages[gifIndex]);
+    // Rotate reaction GIFs based on the message index so each message change
+    // gets a visual change and loops continuously.
+    const gifIndex = msgIndex % rotatingGifs.length;
+    swapGif(rotatingGifs[gifIndex]);
 
     if (noClickCount >= runawayStartCount && !runawayEnabled) {
         enableRunaway();
@@ -175,6 +178,11 @@ function swapGif(src) {
     catGif.style.opacity = '0';
     catGif.style.animation = 'none';
     setTimeout(() => {
+        catGif.onerror = () => {
+            catGif.onerror = null;
+            catGif.src = gifStages[0];
+            catGif.style.opacity = '1';
+        };
         catGif.src = src;
         catGif.style.animation = 'gifPop 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
         catGif.style.opacity = '1';
