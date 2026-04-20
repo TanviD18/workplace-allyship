@@ -9,7 +9,7 @@ LGBTQ+ workplace struggles and gauge allyship.
 - `ally.html`, `ally-script.js`, `ally-yes.html`, etc. – allyship version
 - `style.css` – shared styling with extra rules for `.ally-page`
 - `gifs/` – drop your custom GIFs here
-- `music/` – drop the MP3 used by both demos (filename `pride-anthem.mp3` for ally theme)
+- `music/` – optional background music file
 
 ## Customizing
 
@@ -28,8 +28,11 @@ To make the allyship story feel authentic, replace the placeholder assets:
    These will be shown in sequence as the user clicks **No**. Choose visuals such as
    a rainbow handshake, a closet door, a crying rainbow, etc.
 
-2. **Music** – put a song with an ally/pride theme at `music/pride-anthem.mp3`.
-   It should be a short loopable MP3.
+2. **Music** – add this file:
+   - `music/musicorchestral.mp3.mpeg`
+
+   The site uses one speaker button. Click it to play/pause the same track.
+   Use royalty-free music or audio you have permission to use.
 
 3. **Text** – feel free to edit the messages in `ally-script.js` or the HTML copy to
    better reflect the narrative you want to tell.

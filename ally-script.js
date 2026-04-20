@@ -33,7 +33,7 @@ const yesTeasePokes = [
 let yesTeasedCount = 0;
 let noClickCount = 0;
 let runawayEnabled = false;
-let musicPlaying = true;
+let musicPlaying = false;
 const runawayStartCount = noMessages.length;
 
 const catGif = document.getElementById('cat-gif');
@@ -41,29 +41,44 @@ const gifThought = document.getElementById('gif-thought');
 const yesBtn = document.getElementById('yes-btn');
 const noBtn = document.getElementById('no-btn');
 const music = document.getElementById('bg-music');
+const musicToggle = document.getElementById('music-toggle');
+const musicHint = document.getElementById('music-hint');
 
-// Autoplay handling (same as original)
-music.muted = true;
+// Music starts only when the user clicks the speaker button.
 music.volume = 0.3;
-music.play().then(() => {
-    music.muted = false;
-}).catch(() => {
-    document.addEventListener('click', () => {
-        music.muted = false;
-        music.play().catch(() => {});
-    }, { once: true });
+musicToggle.textContent = '🔈';
+
+if (sessionStorage.getItem('allyMusicHintSeen') === '1' && musicHint) {
+    musicHint.classList.add('hidden');
+}
+
+music.addEventListener('error', () => {
+    musicPlaying = false;
+    musicToggle.textContent = '🔇';
+    console.warn('Music file missing: music/musicorchestral.mp3.mpeg');
 });
 
+function hideMusicHint() {
+    if (musicHint) {
+        musicHint.classList.add('hidden');
+    }
+    sessionStorage.setItem('allyMusicHintSeen', '1');
+}
+
 function toggleMusic() {
+    hideMusicHint();
     if (musicPlaying) {
         music.pause();
         musicPlaying = false;
-        document.getElementById('music-toggle').textContent = '🔇';
+        musicToggle.textContent = '🔈';
     } else {
-        music.muted = false;
-        music.play();
-        musicPlaying = true;
-        document.getElementById('music-toggle').textContent = '🔊';
+        music.play().then(() => {
+            musicPlaying = true;
+            musicToggle.textContent = '🔊';
+        }).catch(() => {
+            musicPlaying = false;
+            musicToggle.textContent = '🔇';
+        });
     }
 }
 
@@ -74,6 +89,8 @@ function handleYesClick() {
         showTeaseMessage(msg);
         return;
     }
+    // Carry music state to the next page
+    sessionStorage.setItem('allyMusicWasPlaying', musicPlaying ? '1' : '0');
     window.location.href = 'ally-yes.html';
 }
 

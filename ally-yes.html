@@ -41,11 +41,13 @@
     </div>
 
     <audio id="bg-music" loop>
-        <!-- replace with the same song as the main page for consistency -->
-        <source src="music/pride-anthem.mp3" type="audio/mpeg">
+        <source src="music/musicorchestral.mp3.mpeg" type="audio/mpeg">
     </audio>
 
-    <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
+    <button id="music-hint" class="music-hint" onclick="toggleMusic()" title="Play music">
+        Tap speaker for music
+    </button>
+    <button id="music-toggle" onclick="toggleMusic()" title="Play or pause music">🔈</button>
 
     <script src="ally-yes-script.js"></script>
 </body>

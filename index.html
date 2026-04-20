@@ -38,12 +38,14 @@
         <div id="tease-toast"></div>
     </div>
 
-    <audio id="bg-music" loop autoplay muted>
-        <!-- replace this file with an upbeat/allyship track (e.g. a Pride anthem) -->
-        <source src="music/pride-anthem.mp3" type="audio/mpeg">
+    <audio id="bg-music" loop>
+        <source src="music/musicorchestral.mp3.mpeg" type="audio/mpeg">
     </audio>
 
-    <button id="music-toggle" onclick="toggleMusic()" title="Toggle music">🔊</button>
+    <button id="music-hint" class="music-hint" onclick="toggleMusic()" title="Play music">
+        Tap speaker for music
+    </button>
+    <button id="music-toggle" onclick="toggleMusic()" title="Play or pause music">🔈</button>
 
     <script src="ally-script.js"></script>
 </body>

@@ -21,14 +21,40 @@ let allyCount = 0;
 let struggleRunaway = false;
 let allyRunaway = false;
 
+// If user explicitly reloads, restart the experience from the first page.
+const navEntry = performance.getEntriesByType('navigation')[0];
+if (navEntry && navEntry.type === 'reload') {
+    window.location.replace('index.html');
+}
+
 window.addEventListener('load', () => {
     launchConfetti();
 
     const music = document.getElementById('bg-music');
+    const musicToggle = document.getElementById('music-toggle');
+    const musicHint = document.getElementById('music-hint');
     music.volume = 0.3;
-    music.play().catch(() => {});
-    musicPlaying = true;
-    document.getElementById('music-toggle').textContent = '🔊';
+    musicToggle.textContent = '🔈';
+
+    if (sessionStorage.getItem('allyMusicHintSeen') === '1' && musicHint) {
+        musicHint.classList.add('hidden');
+    }
+
+    // Resume music if it was playing on the previous page
+    if (sessionStorage.getItem('allyMusicWasPlaying') === '1') {
+        sessionStorage.removeItem('allyMusicWasPlaying');
+        hideMusicHint();
+        music.play().then(() => {
+            musicPlaying = true;
+            musicToggle.textContent = '🔊';
+        }).catch(() => {});
+    }
+
+    music.addEventListener('error', () => {
+        musicPlaying = false;
+        musicToggle.textContent = '🔇';
+        console.warn('Music file missing: music/musicorchestral.mp3.mpeg');
+    });
 
     // attach follow‑up button handlers
     document.getElementById('struggle-btn').addEventListener('click', handleStruggleClick);
@@ -71,16 +97,30 @@ function launchConfetti() {
     }, 300);
 }
 
+function hideMusicHint() {
+    const musicHint = document.getElementById('music-hint');
+    if (musicHint) {
+        musicHint.classList.add('hidden');
+    }
+    sessionStorage.setItem('allyMusicHintSeen', '1');
+}
+
 function toggleMusic() {
     const music = document.getElementById('bg-music');
+    const musicToggle = document.getElementById('music-toggle');
+    hideMusicHint();
     if (musicPlaying) {
         music.pause();
         musicPlaying = false;
-        document.getElementById('music-toggle').textContent = '🔇';
+        musicToggle.textContent = '🔈';
     } else {
-        music.play();
-        musicPlaying = true;
-        document.getElementById('music-toggle').textContent = '🔊';
+        music.play().then(() => {
+            musicPlaying = true;
+            musicToggle.textContent = '🔊';
+        }).catch(() => {
+            musicPlaying = false;
+            musicToggle.textContent = '🔇';
+        });
     }
 }
 
