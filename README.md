@@ -5,7 +5,6 @@ LGBTQ+ workplace struggles and gauge allyship.
 
 ## Structure
 
-- `index.html`, `script.js`, `yes.html` etc. – original Valentine-themed demo
 - `ally.html`, `ally-script.js`, `ally-yes.html`, etc. – allyship version
 - `style.css` – shared styling with extra rules for `.ally-page`
 - `gifs/` – drop your custom GIFs here
