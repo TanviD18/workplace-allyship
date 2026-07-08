@@ -122,6 +122,11 @@ function showGifThought(msg) {
 }
 
 function handleNoClick() {
+    if (runawayEnabled) {
+        runAway();
+        return;
+    }
+
     // Hide any showing tease message immediately
     const toast = document.getElementById('tease-toast');
     clearTimeout(toast._timer);
@@ -149,9 +154,10 @@ function handleNoClick() {
     showGifThought(noMessages[msgIndex]);
 
     const currentSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
-    yesBtn.style.fontSize = `${currentSize * 1.35}px`;
-    const padY = Math.min(18 + noClickCount * 5, 60);
-    const padX = Math.min(45 + noClickCount * 10, 120);
+    const nextSize = Math.min(currentSize * 1.2, 52);
+    yesBtn.style.fontSize = `${nextSize}px`;
+    const padY = Math.min(18 + noClickCount * 4, 44);
+    const padX = Math.min(45 + noClickCount * 8, 96);
     yesBtn.style.padding = `${padY}px ${padX}px`;
 
     // Dramatic scale animation on yes button
@@ -162,7 +168,7 @@ function handleNoClick() {
 
     if (noClickCount >= 2) {
         const noSize = parseFloat(window.getComputedStyle(noBtn).fontSize);
-        noBtn.style.fontSize = `${Math.max(noSize * 0.85, 10)}px`;
+        noBtn.style.fontSize = `${Math.max(noSize * 0.93, 14)}px`;
     }
 
     // Visual intensity increases with each click
@@ -179,7 +185,7 @@ function handleNoClick() {
     const gifIndex = msgIndex % rotatingGifs.length;
     swapGif(mappedGif || rotatingGifs[gifIndex]);
 
-    if (noClickCount >= runawayStartCount && !runawayEnabled) {
+    if (msgIndex === noMessages.length - 1 && !runawayEnabled) {
         enableRunaway();
         runawayEnabled = true;
     }
@@ -202,8 +208,25 @@ function swapGif(src) {
 }
 
 function enableRunaway() {
-    noBtn.addEventListener('mouseover', runAway);
-    noBtn.addEventListener('touchstart', runAway, { passive: true });
+    const evade = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        runAway();
+    };
+
+    noBtn.addEventListener('mouseenter', evade);
+    noBtn.addEventListener('mousemove', evade);
+    noBtn.addEventListener('mousedown', evade);
+    noBtn.addEventListener('click', evade);
+    noBtn.addEventListener('touchstart', evade, { passive: false });
+    noBtn.addEventListener('focus', () => {
+        noBtn.blur();
+        runAway();
+    });
+
+    // Immediately jump once the final message appears, then jump again quickly.
+    runAway();
+    setTimeout(runAway, 80);
 }
 
 function runAway() {

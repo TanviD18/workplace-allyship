@@ -3,7 +3,8 @@ let musicPlaying = false;
 // follow‑up messages for yes page
 const struggleMessages = [
     "It’s okay to feel overwhelmed sometimes.",
-    "We have a confidential support line: 1-800-XXX-XXXX.",
+    "We have a confidential support at GABLE",
+    "Connect with GABLE Team",
     "You’re not alone—talk to an ally or HR for a safe space.",
     "Self-care is important; take a break when you need it."
 ];
