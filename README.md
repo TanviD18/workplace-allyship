@@ -1,47 +1,49 @@
 # Interactive Allyship Demo
 
-This repository contains two small interactive pages demonstrating the 
-LGBTQ+ workplace struggles and gauge allyship.
+Two static pages create a short interactive story about workplace allyship.
 
-## Structure
+## Project Structure
 
-- `ally.html`, `ally-script.js`, `ally-yes.html`, etc. – allyship version
-- `style.css` – shared styling with extra rules for `.ally-page`
-- `gifs/` – drop your custom GIFs here
-- `music/` – optional background music file
+- `index.html` - landing page with the Yes/No interaction.
+- `ally-yes.html` - follow-up page shown after the supportive path.
+- `ally-script.js` - interaction logic for the landing page.
+- `ally-yes-script.js` - follow-up page logic and confetti.
+- `style.css` - shared styling for both pages.
+- `gifs/` - image assets used throughout the experience.
+- `music/` - optional background music asset.
 
-## Customizing
+## Required Assets
 
-To make the allyship story feel authentic, replace the placeholder assets:
+Expected files in `gifs/`:
 
-1. **GIFs** – save eight images under `gifs/` named:
-   - `neutral.gif`
-   - `confused.gif`
-   - `sad.gif`
-   - `closet.gif`
-   - `teary.gif`
-   - `overwhelmed.gif`
-   - `runaway.gif`
-   - `hopeful.gif`
+- `neutral.gif`
+- `confused.gif`
+- `sad.gif`
+- `closet.gif`
+- `teary.gif`
+- `overwhelmed.gif`
+- `runaway.gif`
+- `hopeful.gif`
+- `GABLE (002).png`
 
-   These will be shown in sequence as the user clicks **No**. Choose visuals such as
-   a rainbow handshake, a closet door, a crying rainbow, etc.
+Expected file in `music/`:
 
-2. **Music** – add this file:
-   - `music/musicorchestral.mp3.mpeg`
+- `musicorchestral.mp3.mpeg`
 
-   The site uses one speaker button. Click it to play/pause the same track.
-   Use royalty-free music or audio you have permission to use.
+## Local Run
 
-3. **Text** – feel free to edit the messages in `ally-script.js` or the HTML copy to
-   better reflect the narrative you want to tell.
+Use any static server from the repository root, for example:
 
-## Testing
+```powershell
+python -m http.server 5500
+```
 
-Run a local server and open `https://tanvid18.github.io/workplace-allyship/` to try the interaction. The No button will
-move after several clicks, nudging the user toward the supportive outcome.
+Then open:
 
----
+- `http://localhost:5500/index.html`
 
-Feel free to fork or adapt this demo for workshops, presentations, or personal
-projects.
+## Deployment Notes
+
+- This is a static site (HTML/CSS/JS only), so it can be hosted on GitHub Pages, Netlify, or any static host.
+- Keep file names and folder names unchanged unless you also update all references in HTML/JS.
+- Audio playback is user-gesture gated by browser policy; this is expected behavior.

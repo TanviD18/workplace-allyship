@@ -46,7 +46,6 @@ let yesTeasedCount = 0;
 let noClickCount = 0;
 let runawayEnabled = false;
 let musicPlaying = false;
-const runawayStartCount = noMessages.length;
 
 const catGif = document.getElementById('cat-gif');
 const gifThought = document.getElementById('gif-thought');
@@ -60,10 +59,6 @@ const musicHint = document.getElementById('music-hint');
 music.volume = 0.3;
 musicToggle.textContent = '🔈';
 
-if (sessionStorage.getItem('allyMusicHintSeen') === '1' && musicHint) {
-    musicHint.classList.add('hidden');
-}
-
 music.addEventListener('error', () => {
     musicPlaying = false;
     musicToggle.textContent = '🔇';
@@ -71,10 +66,7 @@ music.addEventListener('error', () => {
 });
 
 function hideMusicHint() {
-    if (musicHint) {
-        musicHint.classList.add('hidden');
-    }
-    sessionStorage.setItem('allyMusicHintSeen', '1');
+    // Keep hint visible as a persistent subtle prompt.
 }
 
 function toggleMusic() {
@@ -135,11 +127,7 @@ function handleNoClick() {
     toast.style.transform = 'translateY(6px)';
 
     noClickCount++;
-    // determine which message to show; initially go through the list one by one
-    // once we've shown the last entry we begin cycling. the first entry in the
-    // cycle should be the final message itself ("It's exhausting keeping this
-    // secret.") so it feels like the last value is still "stuck" and then it
-    // rolls forward from there.
+    // Step through all messages once, then cycle from the final message.
     let msgIndex;
     if (noClickCount <= noMessages.length) {
         // normal progression: click 1 → index 0, click 2 → index 1, …

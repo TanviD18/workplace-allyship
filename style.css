@@ -119,11 +119,6 @@ h1 {
     50% { transform: rotate(1deg); }
 }
 
-@keyframes hintGlow {
-    0%, 100% { transform: translateY(0); box-shadow: 0 8px 20px rgba(214, 51, 132, 0.12); }
-    50% { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(214, 51, 132, 0.2); }
-}
-
 .gif-container {
     margin: 20px auto;
     display: flex;
@@ -289,37 +284,29 @@ h1 {
 
 .music-hint {
     position: fixed;
-    right: 82px;
-    bottom: 30px;
+    right: 20px;
+    bottom: 78px;
     display: flex;
     align-items: center;
-    gap: 5px;
+    justify-content: center;
     border: none;
-    border-radius: 999px;
-    padding: 8px 14px;
-    background: linear-gradient(135deg, #ff8fa3, #e91e8c);
-    color: #fff;
+    border-radius: 6px;
+    padding: 4px 7px;
+    background: rgba(255, 255, 255, 0.7);
+    color: rgba(90, 45, 70, 0.9);
     font-family: 'Nunito', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 800;
+    font-size: 0.68rem;
+    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 6px 16px rgba(233, 30, 140, 0.4);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
     white-space: nowrap;
     opacity: 1;
     transition: opacity 0.25s ease;
-    animation: musicHintBounce 1.4s ease-in-out infinite;
     z-index: 101;
 }
 
 .music-hint::after {
-    content: '';
-    position: absolute;
-    right: -8px;
-    top: 50%;
-    transform: translateY(-50%);
-    border-top: 7px solid transparent;
-    border-bottom: 7px solid transparent;
-    border-left: 9px solid #e91e8c;
+    content: none;
 }
 
 .music-hint.hidden {
@@ -346,8 +333,9 @@ h1 {
     }
 
     .music-hint {
-        right: 78px;
-        bottom: 26px;
+        right: 18px;
+        bottom: 74px;
+        font-size: 0.64rem;
     }
 }
 
@@ -434,6 +422,7 @@ h1 {
 
 .ally-page h1 {
     background: linear-gradient(90deg, #e70000, #ff8c00, #ffef00, #00811f, #0044ff, #760089);
+    background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     animation: rainbowWiggle 2.5s ease-in-out infinite;
@@ -491,6 +480,7 @@ h1 {
 .ally-page #tease-toast {
     color: transparent;
     background: linear-gradient(90deg, #e70000, #ff8c00, #ffef00, #00811f, #0044ff, #760089);
+    background-clip: text;
     -webkit-background-clip: text;
     font-size: 1.1rem;
     animation: slideIn 0.4s ease-out forwards;
@@ -525,6 +515,7 @@ h1 {
 /* Rainbow message on yes page */
 .ally-page .yes-message {
     background: linear-gradient(90deg, #e70000, #ff8c00, #ffef00, #00811f, #0044ff, #760089);
+    background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     animation: fadeInSlideUp 1.2s ease 0.5s both;
@@ -573,6 +564,7 @@ h1 {
 
 .ally-page .yes-container h1.yes-title {
     background: linear-gradient(90deg, #e70000, #ff8c00, #ffef00, #00811f, #0044ff, #760089);
+    background-clip: text;
     -webkit-background-clip: text;
     color: transparent;
     animation: rainbowBounce 0.8s ease infinite alternate;

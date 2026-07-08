@@ -19,8 +19,6 @@ const allyTips = [
 
 let struggleCount = 0;
 let allyCount = 0;
-let struggleRunaway = false;
-let allyRunaway = false;
 
 // If user explicitly reloads, restart the experience from the first page.
 const navEntry = performance.getEntriesByType('navigation')[0];
@@ -36,10 +34,6 @@ window.addEventListener('load', () => {
     const musicHint = document.getElementById('music-hint');
     music.volume = 0.3;
     musicToggle.textContent = '🔈';
-
-    if (sessionStorage.getItem('allyMusicHintSeen') === '1' && musicHint) {
-        musicHint.classList.add('hidden');
-    }
 
     // Resume music if it was playing on the previous page
     if (sessionStorage.getItem('allyMusicWasPlaying') === '1') {
@@ -99,11 +93,7 @@ function launchConfetti() {
 }
 
 function hideMusicHint() {
-    const musicHint = document.getElementById('music-hint');
-    if (musicHint) {
-        musicHint.classList.add('hidden');
-    }
-    sessionStorage.setItem('allyMusicHintSeen', '1');
+    // Keep hint visible as a persistent subtle prompt.
 }
 
 function toggleMusic() {
@@ -123,27 +113,6 @@ function toggleMusic() {
             musicToggle.textContent = '🔇';
         });
     }
-}
-
-function enableRunaway(btn) {
-    btn.addEventListener('mouseover', () => runAway(btn));
-    btn.addEventListener('touchstart', () => runAway(btn), { passive: true });
-}
-
-function runAway(btn) {
-    const margin = 20;
-    const btnW = btn.offsetWidth;
-    const btnH = btn.offsetHeight;
-    const maxX = window.innerWidth - btnW - margin;
-    const maxY = window.innerHeight - btnH - margin;
-
-    const randomX = Math.random() * maxX + margin / 2;
-    const randomY = Math.random() * maxY + margin / 2;
-
-    btn.style.position = 'fixed';
-    btn.style.left = `${randomX}px`;
-    btn.style.top = `${randomY}px`;
-    btn.style.zIndex = '50';
 }
 
 function handleStruggleClick() {
